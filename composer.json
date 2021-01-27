@@ -1,0 +1,63 @@
+{
+    "name": "yahiru/yuruhachi",
+    "description": "",
+    "authors": [
+        {
+            "name": "yuhei yoshida",
+            "email": "yahiru1121@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4 | ^8.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.18",
+        "infection/infection": "^0.20",
+        "jangregor/phpstan-prophecy": "^0.8.0",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-phpunit": "^0.12.6",
+        "phpunit/phpunit": "^9.0",
+        "squizlabs/php_codesniffer": "^3.5",
+        "symfony/var-dumper": "^5.0",
+        "vimeo/psalm": "^4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yahiru\\Yuruhachi\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Yahiru\\Yuruhachi\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "phpunit"
+        ],
+        "tests": [
+            "@cs",
+            "@stan",
+            "@psalm",
+            "@test"
+        ],
+        "coverage": [
+            "php -d pcov.directory=. -d pcov.exclude=./tests ./vendor/bin/phpunit --coverage-html=build/coverage --coverage-text"
+        ],
+        "infection": "infection --git-diff-filter=A --git-diff-base=origin/main --ignore-msi-with-no-mutations",
+        "cs": [
+            "php-cs-fixer fix -v --dry-run",
+            "phpcs --standard=phpcs.xml src;"
+        ],
+        "cs-fix": [
+            "php-cs-fixer fix -v",
+            "phpcbf src tests"
+        ],
+        "stan": "phpstan analyse --no-progress",
+        "psalm": "psalm"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
